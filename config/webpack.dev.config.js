@@ -38,6 +38,7 @@ module.exports = merge(common, {
       format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
       clear: false
     }),
+    new CleanWebpackPlugin(),
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
         messages: [`You application is running here http://localhost:${DEFAULT_PORT}`],

@@ -28,37 +28,79 @@ module.exports = {
                     },
                 ]
             },
+            // {
+            //     test: /\.less$/,
+            //     include: /node_modules/,
+            //     use: [
+            //         {
+            //             loader: MiniCssExtractPlugin.loader,
+            //             options: {
+            //                 hmr: Mode,
+            //             }
+            //         },
+            //         {
+            //             loader: 'css-loader',
+            //             options: {
+            //                 importLoaders: 1,
+            //                 modules: {
+            //                     modules: true,
+            //                     localIdentName: '[name]_[local]_[hash:base64:5]',
+            //                 }
+            //             }
+            //         },
+            //         {
+            //             loader: 'less-loader',
+            //             options: {
+            //                 javascriptEnabled: true,
+            //                 modifyVars: theme,
+            //             }
+            //         },
+            //         {
+            //             loader: 'postcss-loader'
+            //         }
+            //     ]
+            // },
             {
                 test: /\.less$/,
-                include: /node_modules/,
                 use: [
-                    {
-                        loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            hmr: Mode,
-                        }
-                    },
+                    'css-hot-loader',
+                    MiniCssExtractPlugin.loader,
                     {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 1,
-                            modules: {
-                                modules: true,
-                                localIdentName: '[name]_[local]_[hash:base64:5]',
-                            }
-                        }
+                            modules: true,
+                        },
                     },
                     {
                         loader: 'less-loader',
                         options: {
                             javascriptEnabled: true,
                             modifyVars: theme,
-                        }
+                        },
+                    },
+                ],
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.less$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 1,
+                        },
                     },
                     {
-                        loader: 'postcss-loader'
-                    }
-                ]
+                        loader: 'less-loader',
+                        options: {
+                            javascriptEnabled: true,
+                            modifyVars: theme,
+                        },
+                    },
+                ],
+                exclude: /src/,
             },
             {
                 test: /(\.js|\.jsx)$/,
@@ -102,6 +144,7 @@ module.exports = {
         new webpack.ProvidePlugin({
             "React": "react",
         }),
+        new webpack.HotModuleReplacementPlugin(),
     ],
 
     optimization: {

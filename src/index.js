@@ -4,8 +4,10 @@ import createLoading from 'dva-loading';
 import { Router, useRouterHistory } from 'dva/router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import routes from './routes';
+import Home from '../src/pages/home/HomePage';
 
-const history = useRouterHistory(createBrowserHistory)({ basename: '/v3' });
+
+const history = useRouterHistory(createBrowserHistory)();
 
 const RouterConfig = ({ history, app }) => {
   return <Router history={history} routes={routes} />;

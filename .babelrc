@@ -13,6 +13,7 @@
    
       "@babel/plugin-proposal-function-bind",
       "dynamic-import-node-sync",
+      "@babel/plugin-syntax-dynamic-import",
       ["@babel/plugin-proposal-decorators", { "legacy": true }],
       ["@babel/plugin-proposal-class-properties", { "loose" : false }],
       ["@babel/plugin-transform-runtime"],

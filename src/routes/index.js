@@ -1,3 +1,5 @@
+import App from "../pages/App.js"
+
 const routes = [
   {
     path: '/',
@@ -13,5 +15,11 @@ const routes = [
         });
       }
     },
-  }
+  },
+  {
+    path: '/app',
+    component: App,
+  },
 ]
+
+export default routes;
