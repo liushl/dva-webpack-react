@@ -26,7 +26,7 @@ module.exports = merge(common, {
     new webpack.HotModuleReplacementPlugin(),
     new HtmlWebpackPlugin({
       filename: "index.html",
-      template: path.join(__dirname, '/src/index.ejs'),
+      template: path.join(__dirname, '../src/index.ejs'),
       hash: true,
       isDev: true,
       minify: {
@@ -38,15 +38,10 @@ module.exports = merge(common, {
       format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds)',
       clear: false
     }),
-    new webpack.DllReferencePlugin({
-      context: __dirname,
-      manifest: require('./dist/vendor-manifest.json')
-    }),
     new FriendlyErrorsWebpackPlugin({
       compilationSuccessInfo: {
         messages: [`You application is running here http://localhost:${DEFAULT_PORT}`],
       },
     }),
-    new CleanWebpackPlugin(),
   ],
 });

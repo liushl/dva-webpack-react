@@ -8,14 +8,14 @@ const Mode = process.env.NODE_ENV !== 'production';
 module.exports = {
     output: {
         filename: '[name].[hash:8].js',
-        path: path.resolve( __dirname, '../dist' ),
+        path: path.resolve(__dirname, '../dist'),
         chunkFilename: '[name].[hash:8].async.js',
         publicPath: '/'
     },
     module: {
         rules: [
             {
-                test: /\.css$/, 
+                test: /\.css$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -30,7 +30,7 @@ module.exports = {
             },
             {
                 test: /\.less$/,
-                exclude: /node_modules/,
+                include: /node_modules/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -43,6 +43,7 @@ module.exports = {
                         options: {
                             importLoaders: 1,
                             modules: {
+                                modules: true,
                                 localIdentName: '[name]_[local]_[hash:base64:5]',
                             }
                         }
@@ -53,6 +54,9 @@ module.exports = {
                             javascriptEnabled: true,
                             modifyVars: theme,
                         }
+                    },
+                    {
+                        loader: 'postcss-loader'
                     }
                 ]
             },
@@ -76,7 +80,7 @@ module.exports = {
                             outputPath: 'images'
                         }
                     }
-                ]   
+                ]
             }
         ],
     },

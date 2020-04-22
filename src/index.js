@@ -1,24 +1,32 @@
-import React from 'react';
+import dva from 'dva';
 import ReactDOM from 'react-dom';
-import dva from './Dva';
-
-
+import createLoading from 'dva-loading';
+import { Router, useRouterHistory } from 'dva/router';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import routes from './routes';
 
+const history = useRouterHistory(createBrowserHistory)({ basename: '/v3' });
 
-//定义dva的参数
-const options = {
-  initialState: {},
-  //注册的models
-  models: [],
-  //注册的事件
-  onAction: [],
-  //异常处理，所有的异常都会通过这里
-  onError(e) {
-      console.log("Error", e);
-  }
+const RouterConfig = ({ history, app }) => {
+  return <Router history={history} routes={routes} />;
 };
-const app = dva(options);
-const App = app.start(<Router/>);
+
+// 1. Initialize`
+const app = dva({
+  history: history,
+  initialState: {},
+});
+
+// 2. Plugins
+app.use(createLoading());
+
+// 3. Model
+app.model(require('./models/app').default);
+
+// 4. Router
+app.router(RouterConfig);
+
+// 5. Start
+const App = app.start();
 
 ReactDOM.render(<App />, document.getElementById('root'));

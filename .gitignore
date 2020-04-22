@@ -12,4 +12,3 @@ npm-debug.log*
 .idea/
 yarn.lock
 package-lock.json
-/src/utils/request.js
