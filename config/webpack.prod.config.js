@@ -18,35 +18,17 @@ module.exports = merge(common, {
   plugins: [
     new HtmlWebpackPlugin({
       filename: "index.html",
-      template: "public/index.html",
+      template: path.join(__dirname, '../src/index.ejs'),
       inject: "body",
       minify: {
         removeComments: true,
         collapseWhitespace: true,
       },
     }),
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      filename: '[name].[hash].css',
-      chunkFilename: '[id].[hash].css',
-    }),
+    new CleanWebpackPlugin()
   ],
   module: {
     rules: [
-      {
-        test: /\.css$/,
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              
-            }
-          },
-          'css-loader',
-          'postcss-loader',
-          'sass-loader',
-        ]
-      }
     ]
   },
 });

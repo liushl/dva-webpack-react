@@ -1,21 +1,41 @@
+
+import { Toast } from 'antd-mobile';
+
 export default {
 
   namespace: 'app',
 
   state: {
-    contact: null
+    isLogin: false,
   },
 
   reducers: {
-    setContact(state, action) {
-      return { ...state, contact: action.payload };
+    login(state, { payload }) {
+      return { ...state, isLogin: payload };
+    },
+    logout(state, { payload }) {
+      return { ...state, isLogin: false };
     },
   },
 
   effects: {
-    * restoreToDefault({ payload }, { call, put }) {
-      yield put({ type: 'setContact', payload: null });
+    * userLogin({ payload }, { call, put }) {
+      const { account, password } = payload;
+      if (account === "admin" && password === "admin") {
+        yield put({ type: 'login', payload: true });
+      } else {
+        Toast.info("账号、密码错误");
+      }
     },
+    userLogout: [
+      function* ({ payload }, { call, put }) {
+        try {
+          yield put({ type: 'logout' });
+        } catch (error) {
+          Toast.fail(error.errorMsg, 2);
+        }
+      }, { type: 'takeLatest' }
+    ],
   },
 
   subscriptions: {
